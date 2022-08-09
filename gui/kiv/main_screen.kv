@@ -1,0 +1,231 @@
+#:set dark_background [.0, .0, .0, 1.0]
+#:set blue_button_1 [0.46, 0.34, 0.86, 1.0]
+#:set light_blue_background [0.08, 0.17, 0.33, 1.0]
+#:import VideoWidget gui.video.VideoWidget
+
+<MainScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        canvas.before:
+            Color:
+                rgba: light_blue_background
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        size_hint: 1, 1
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: 1, 0.5
+            padding: [20, 20, 20, 10]
+            spacing: 30
+            BoxLayout:
+                orientation: "vertical"
+                size_hint: 0.3, 1
+                spacing: 20
+                Label:
+                    height: 10
+                    size_hint_y: None
+                    size_hint_x: 0.5
+                    font_size: 24
+                    text: "Stamp Detector Cam"
+                    color: 1, 0, 0, 1
+                VideoWidget:
+                    id: stamp_cam
+                    allow_stretch: True
+                    port_num: 0
+                    size_hint_y: None
+                    height: 400
+                    animation_offset: 1
+            BoxLayout:
+                orientation: "vertical"
+                size_hint: 0.3, 1
+                spacing: 20
+                Label:
+                    height: 10
+                    size_hint_y: None
+                    size_hint_x: 0.5
+                    font_size: 24
+                    text: "Top Cam"
+                    color: 1, 0, 0, 1
+                VideoWidget:
+                    id: top_cam
+                    allow_stretch: True
+                    port_num: 2
+                    size_hint_y: None
+                    height: 400
+                    animation_offset: 1
+            BoxLayout:
+                orientation: "vertical"
+                size_hint: 0.3, 1
+                spacing: 20
+                Label:
+                    height: 10
+                    size_hint_y: None
+                    size_hint_x: 0.5
+                    font_size: 24
+                    text: "Bottom Cam"
+                    color: 1, 0, 0, 1
+                VideoWidget:
+                    id: bottom_cam
+                    allow_stretch: True
+                    port_num: 3
+                    size_hint_y: None
+                    height: 400
+                    animation_offset: 1
+        BoxLayout:
+            orientation: 'horizontal'
+            size_hint: 1, 0.5
+            padding: [20, 10, 20, 20]
+            spacing: 30
+            BoxLayout:
+                orientation: "vertical"
+                size_hint: 0.3, 1
+                spacing: 10
+                Label:
+                    height: 10
+                    size_hint_y: None
+                    size_hint_x: 0.5
+                    font_size: 24
+                    text: "Rotated Picture"
+                    color: 1, 0, 0, 1
+                Image:
+                    size_hint_y: None
+                    height: 400
+                    id: rotated_image
+                    allow_stretch: True
+                    source: 'utils/img/bad_camera.png'
+                    animation_offset: 1
+            BoxLayout:
+                orientation: "vertical"
+                size_hint: 0.3, 1
+                spacing: 10
+                Label:
+                    height: 10
+                    size_hint_y: None
+                    size_hint_x: 0.5
+                    font_size: 24
+                    text: "Current Alignment"
+                    color: 1, 0, 0, 1
+                Image:
+                    size_hint_y: None
+                    height: 400
+                    id: align_image
+                    allow_stretch: True
+                    source: 'utils/img/bad_camera.png'
+                    animation_offset: 1
+            BoxLayout:
+                orientation: "vertical"
+                size_hint: 0.3, 1
+                padding: [0, 50, 0, 0]
+                BoxLayout:
+                    orientation: 'horizontal'
+                    padding: 0, 15, 0, 15
+                    size_hint_y: None
+                    height: 82
+                    Label:
+                        size_hint_x: 0.75
+                        pos_hint: {'center_x': 0.2, 'center_y': 0.5}
+                        text: "Pictures per collection:"
+                        font_size: 20
+                    TextInput:
+                        size_hint_x: 0.25
+                        size_hint_y: None
+                        height: 42
+                        pos_hint: {'center_y': 0.8, 'center_y': 0.5}
+                        id: pic_per_collection
+                        text: "4"
+                        font_size: 25
+                        color: 0, 0, 0, 1
+                BoxLayout:
+                    orientation: 'horizontal'
+                    padding: 0, 15, 0, 15
+                    size_hint_y: None
+                    height: 82
+                    spacing: 20
+                    Button:
+                        size_hint_x: 0.3
+                        size_hint_y: None
+                        height: 50
+                        text: "Start"
+                        font_size: 25
+                        background_color: 0, 1, 0, 1
+                        on_press:
+                            root.start_process()
+                    Button:
+                        size_hint_x: 0.3
+                        size_hint_y: None
+                        height: 50
+                        text: "Stop"
+                        font_size: 25
+                        background_color: 1, 0, 0, 1
+                        on_press:
+                            root.stop_process()
+                    Button:
+                        size_hint_x: 0.3
+                        size_hint_y: None
+                        height: 50
+                        text: "Pause"
+                        font_size: 25
+                        background_color: 1, 0, 1, 1
+                        on_press:
+                            root.pause_process()
+                BoxLayout:
+                    orientation: 'horizontal'
+                    padding: 0, 15, 0, 15
+                    size_hint_y: None
+                    height: 82
+                    Label:
+                        size_hint_x: 0.75
+                        size_hint_y: None
+                        pos_hint: {'center_x': 0.2, 'center_y': 0.5}
+                        text: "Runtime:"
+                        font_size: 20
+                    Label:
+                        size_hint_x: 0.25
+                        size_hint_y: None
+                        height: 42
+                        pos_hint: {'center_x': 0.8, 'center_y': 0.5}
+                        id: run_time
+                        text: "00:00:00"
+                        font_size: 25
+                        color: 1, 0, 0, 1
+                BoxLayout:
+                    orientation: 'horizontal'
+                    padding: 0, 15, 0, 15
+                    size_hint_y: None
+                    height: 82
+                    Label:
+                        size_hint_x: 0.75
+                        size_hint_y: None
+                        pos_hint: {'center_x': 0.2, 'center_y': 0.5}
+                        text: "Finished collection:"
+                        font_size: 20
+                    Label:
+                        size_hint_x: 0.25
+                        size_hint_y: None
+                        height: 42
+                        pos_hint: {'center_x': 0.8, 'center_y': 0.5}
+                        id: finished_collection
+                        text: "00"
+                        font_size: 25
+                        color: 1, 0, 0, 1
+                BoxLayout:
+                    orientation: 'horizontal'
+                    padding: 0, 15, 0, 15
+                    size_hint_y: None
+                    height: 82
+                    Label:
+                        size_hint_x: 0.75
+                        size_hint_y: None
+                        pos_hint: {'center_x': 0.2, 'center_y': 0.5}
+                        text: "No.Stamps current collection:"
+                        font_size: 20
+                    Label:
+                        size_hint_x: 0.25
+                        size_hint_y: None
+                        height: 42
+                        pos_hint: {'center_y': 0.8, 'center_y': 0.5}
+                        id: no_stamps
+                        text: "00"
+                        font_size: 25
+                        color: 1, 0, 0, 1
