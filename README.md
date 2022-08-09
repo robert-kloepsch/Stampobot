@@ -12,7 +12,7 @@ been built to analyze the pictures of stamps. The tasks of the various models ar
 - align on virtual collection space
 
 This process is iterated by communicating between Arduino and PC via USB serial communication. The Arduino is programmed
-sedately to control all the motors/electronics that are used in this project. 
+separately to control all the motors/electronics that are used in this project. 
 
 The following is used and controlled by Arduino:
 
